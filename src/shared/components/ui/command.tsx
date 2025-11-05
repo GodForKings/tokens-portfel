@@ -6,7 +6,7 @@ import {
 	Dialog,
 	DialogContent,
 	DialogTitle,
-} from '@/shared/ui/components/ui/dialog'
+} from '@/shared/components/ui/dialog'
 import { type DialogProps } from '@radix-ui/react-dialog'
 import { Command as CommandPrimitive } from 'cmdk'
 import { Check, type LucideIcon, Search } from 'lucide-react'

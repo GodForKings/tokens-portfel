@@ -1,7 +1,7 @@
 import { type CSSProperties, Fragment, useId } from 'react'
 
-import { Button } from '@/shared/ui/components/ui/button'
-import { useDataGrid } from '@/shared/ui/components/ui/data-grid'
+import { Button } from '@/shared/components/ui/button'
+import { useDataGrid } from '@/shared/components/ui/data-grid'
 import {
 	DataGridTableBase,
 	DataGridTableBody,
@@ -16,7 +16,7 @@ import {
 	DataGridTableHeadRowCell,
 	DataGridTableHeadRowCellResize,
 	DataGridTableRowSpacer,
-} from '@/shared/ui/components/ui/data-grid-table'
+} from '@/shared/components/ui/data-grid-table'
 import {
 	closestCenter,
 	DndContext,

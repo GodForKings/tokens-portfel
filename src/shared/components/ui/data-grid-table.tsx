@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { type CSSProperties, Fragment, type ReactNode } from 'react'
-import { Checkbox } from '@/shared/ui/components/ui/checkbox'
-import { useDataGrid } from '@/shared/ui/components/ui/data-grid'
+import { Checkbox } from '@/shared/components/ui/checkbox'
+import { useDataGrid } from '@/shared/components/ui/data-grid'
 import {
 	type Cell,
 	type Column,
@@ -258,7 +258,7 @@ function DataGridTableBodyRowSkeletonCell<TData>({
 				column.columnDef.meta?.cellClassName,
 				props.tableLayout?.columnsPinnable &&
 					column.getCanPin() &&
-					'[&[data-pinned=left][data-last-col=left]]:border-e! [&[data-pinned=right][data-last-col=right]]:border-s! [&[data-pinned][data-last-col]]:border-border data-pinned:bg-background/90 data-pinned:backdrop-blur-xs"',
+					'[&[data-pinned=left][data-last-col=left]]:border-e! [&[data-pinned=right][data-last-col=right]]:border-s! [&[data-pinned][data-last-col]]:border-border data-pinned:bg-background/90 data-pinned:backdrop-blur-xs',
 				column.getIndex() === 0 ||
 					column.getIndex() === table.getVisibleFlatColumns().length - 1
 					? props.tableClassNames?.edgeCell

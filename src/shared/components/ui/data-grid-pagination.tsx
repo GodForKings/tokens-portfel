@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react'
-import { Button } from '@/shared/ui/components/ui/button'
-import { useDataGrid } from '@/shared/ui/components/ui/data-grid'
+import { Button } from '@/shared/components/ui/button'
+import { useDataGrid } from '@/shared/components/ui/data-grid'
 import {
 	Select,
 	SelectContent,
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from '@/shared/ui/components/ui/select'
-import { Skeleton } from '@/shared/ui/components/ui/skeleton'
+} from '@/shared/components/ui/select'
+import { Skeleton } from '@/shared/components/ui/skeleton'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { cn } from '@/shared/lib/utils'
 

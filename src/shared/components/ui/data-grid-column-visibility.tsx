@@ -1,11 +1,12 @@
+import type { Table } from '@tanstack/react-table'
+
 import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
 	DropdownMenuLabel,
 	DropdownMenuTrigger,
-} from '@/shared/ui/components/ui/dropdown-menu'
-import type { Table } from '@tanstack/react-table'
+} from '@/shared/components/ui/dropdown-menu'
 
 function DataGridColumnVisibility<TData>({
 	table,

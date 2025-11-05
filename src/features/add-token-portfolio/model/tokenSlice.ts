@@ -35,8 +35,8 @@ export const tokenSlice = createSlice({
 						.map(t => ({
 							...t,
 							symbol: t.symbol.replace(/USDT$/, ''),
-							lastPrice: Number(t.lastPrice),
-							priceChangePercent: Number(t.priceChangePercent),
+							lastPrice: t.lastPrice,
+							priceChangePercent: t.priceChangePercent,
 						}))
 				}
 			)

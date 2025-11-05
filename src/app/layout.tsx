@@ -11,9 +11,9 @@ import { StoreProvider } from '@/entities'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-	title: 'crypto-itdextra',
+	title: 'Crypto Portfel ITDextra corp.',
 	description:
-		'Добавление токенов из Binance себе в портфель для real-time обновления и просмотра цены',
+		'Приложение для добавления актуальных криптотокенов с топовых площадок себе в портфель для real-time мониторинга, аналитики и удобного отображения',
 }
 
 interface RootLayoutProps {
