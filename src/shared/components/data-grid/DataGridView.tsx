@@ -59,7 +59,8 @@ import {
 import { Ellipsis, Filter, Plus, Search, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { PAGINATION } from '@/shared/constants'
-import { cn, type CoinGeckoToken } from '@/shared'
+import { cn, PAGES, type CoinGeckoToken } from '@/shared'
+import Link from 'next/link'
 
 function ActionsCell({ row }: { row: Row<CoinGeckoToken> }) {
 	const { copy } = useCopyToClipboard()
@@ -118,10 +119,10 @@ const DataGridView: FC<DataGridViewProps> = props => {
 		pageSize: PAGINATION.DEFAULT_LIMIT,
 	})
 	const [sorting, setSorting] = useState<SortingState>([
-		{ id: 'market_cap', desc: true },
+		{ id: 'Рыночная капитализация', desc: true },
 	])
 	const [searchQuery, setSearchQuery] = useState('')
-	const [selectedStatuses, setSelectedStatuses] = useState<string[]>([])
+	const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]) // category
 
 	const filteredData = useMemo(() => {
 		return dataTokens?.filter(item => {
@@ -138,6 +139,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 		})
 	}, [searchQuery, selectedStatuses, isLoading])
 
+	// category event
 	const handleStatusChange = (checked: boolean, value: string) => {
 		setSelectedStatuses(
 			(
@@ -148,19 +150,6 @@ const DataGridView: FC<DataGridViewProps> = props => {
 
 	const columns = useMemo<ColumnDef<CoinGeckoToken>[]>(
 		() => [
-			{
-				accessorKey: 'id',
-				id: 'id',
-				header: () => <DataGridTableRowSelectAll />,
-				cell: ({ row }) => <DataGridTableRowSelect row={row} />,
-				enableSorting: false,
-				size: 30,
-				meta: {
-					headerClassName: '',
-					cellClassName: '',
-				},
-				enableResizing: false,
-			},
 			{
 				accessorKey: 'name',
 				id: 'name',
@@ -177,16 +166,18 @@ const DataGridView: FC<DataGridViewProps> = props => {
 							<Avatar className='size-10'>
 								<AvatarImage src={row.original.image} alt={row.original.name} />
 
-								<AvatarFallback>H</AvatarFallback>
+								<AvatarFallback>T</AvatarFallback>
 							</Avatar>
 
-							<div className='font-medium text-foreground'>
-								{row.original.name}
-							</div>
+							<Button mode={'link'} underline={'solid'}>
+								<Link href={PAGES.TOKEN_INFO(row.original.id)}>
+									{row.original.name}
+								</Link>
+							</Button>
 						</div>
 					)
 				},
-				size: 200,
+				size: 100,
 				enableSorting: true,
 				enableResizing: true,
 				enableHiding: false,
@@ -202,18 +193,100 @@ const DataGridView: FC<DataGridViewProps> = props => {
 					/>
 				),
 				cell: ({ row }) => (
-					<div className='flex items-center font-medium text-foreground'>
+					<Badge
+						variant={
+							row.original.price_change_percentage_24h >= 0
+								? 'success'
+								: 'destructive'
+						}
+						appearance={'light'}
+						size={'lg'}
+					>
 						$ {row.original.current_price}
-					</div>
+					</Badge>
 				),
-				size: 150,
+				size: 120,
 				enableSorting: true,
 				enableResizing: true,
 				enableHiding: false,
 			},
 			{
+				accessorKey: 'low_24h',
+				id: 'мин 24ч',
+				header: ({ column }) => (
+					<DataGridColumnHeader
+						title='мин. 24ч'
+						visibility={true}
+						column={column}
+					/>
+				),
+				cell: ({ row }) => {
+					return (
+						<Badge variant={'secondary'} appearance={'outline'} size={'lg'}>
+							$ {row.original.low_24h}
+						</Badge>
+					)
+				},
+				size: 120,
+				enableSorting: true,
+				enableResizing: true,
+				enableHiding: true,
+			},
+			{
+				accessorKey: 'high_24h',
+				id: 'макс 24ч',
+				header: ({ column }) => (
+					<DataGridColumnHeader
+						title='макс. 24ч'
+						visibility={true}
+						column={column}
+					/>
+				),
+				cell: ({ row }) => {
+					return (
+						<Badge variant={'outline'} size={'lg'}>
+							$ {row.original.high_24h}
+						</Badge>
+					)
+				},
+				size: 120,
+				enableSorting: true,
+				enableResizing: true,
+				enableHiding: true,
+			},
+			{
+				accessorKey: 'price_change_percentage_24h',
+				id: 'Изменения за 24ч',
+				header: ({ column }) => (
+					<DataGridColumnHeader title='24ч' visibility={true} column={column} />
+				),
+				cell: ({ row }) => {
+					return (
+						<Badge
+							variant={
+								row.original.price_change_percentage_24h >= 0
+									? 'success'
+									: 'destructive'
+							}
+							appearance={'outline'}
+							size={'lg'}
+						>
+							{row.original.price_change_percentage_24h}%
+						</Badge>
+					)
+				},
+				meta: {
+					headerClassName: '',
+					cellClassName: 'text-start',
+				},
+				size: 70,
+				enableSorting: true,
+				enableResizing: true,
+				enableHiding: true,
+			},
+			{
 				accessorKey: 'market_cap',
-				id: 'market_cap',
+				id: 'Рыночная капитализация',
 				header: ({ column }) => (
 					<DataGridColumnHeader
 						title='Рыночная кап.'
@@ -229,89 +302,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				size: 150,
 				enableSorting: true,
 				enableResizing: true,
-				enableHiding: false,
-			},
-			{
-				accessorKey: 'price_change_percentage_24h',
-				id: 'price_change_percentage_24h',
-				header: ({ column }) => (
-					<DataGridColumnHeader title='24ч' visibility={true} column={column} />
-				),
-				cell: ({ row }) => {
-					return (
-						<div
-							className={cn(
-								'flex items-center',
-								row.original.price_change_percentage_24h >= 0
-									? 'text-green-500'
-									: 'text-red-500'
-							)}
-						>
-							{row.original.price_change_percentage_24h}%
-						</div>
-					)
-				},
-				meta: {
-					headerClassName: '',
-					cellClassName: 'text-start',
-				},
-				size: 70,
-				enableSorting: true,
-				enableResizing: true,
 				enableHiding: true,
-			},
-			// {
-			// 	accessorKey: 'status',
-			// 	id: 'status',
-			// 	header: ({ column }) => (
-			// 		<DataGridColumnHeader
-			// 			title='Status'
-			// 			visibility={true}
-			// 			column={column}
-			// 		/>
-			// 	),
-			// 	cell: ({ row }) => {
-			// 		const status = row.original.status
-			// 		switch (status) {
-			// 			case 'Active':
-			// 				return (
-			// 					<Badge variant='primary' appearance='outline'>
-			// 						Approved
-			// 					</Badge>
-			// 				)
-			// 			case 'Blocked':
-			// 				return (
-			// 					<Badge variant='destructive' appearance='outline'>
-			// 						Blocked
-			// 					</Badge>
-			// 				)
-			// 			case 'Inactive':
-			// 				return (
-			// 					<Badge variant='secondary' appearance='outline'>
-			// 						Inactive
-			// 					</Badge>
-			// 				)
-			// 			default:
-			// 				return (
-			// 					<Badge variant='secondary' appearance='outline'>
-			// 						Pending
-			// 					</Badge>
-			// 				)
-			// 		}
-			// 	},
-			// 	size: 100,
-			// 	enableSorting: true,
-			// 	enableHiding: true,
-			// 	enableResizing: true,
-			// },
-			{
-				id: 'actions',
-				header: '',
-				cell: ({ row }) => <ActionsCell row={row} />,
-				size: 60,
-				enableSorting: false,
-				enableHiding: false,
-				enableResizing: false,
 			},
 		],
 		[]
@@ -351,6 +342,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				columnsResizable: true,
 				columnsMovable: true,
 				columnsVisibility: true,
+				headerSticky: true,
 			}}
 		>
 			<Card>
@@ -360,7 +352,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 							<div className='relative'>
 								<Search className='size-4 text-muted-foreground absolute start-3 top-1/2 -translate-y-1/2' />
 								<Input
-									placeholder='Search...'
+									placeholder='Поиск...'
 									value={searchQuery}
 									onChange={e => setSearchQuery(e.target.value)}
 									className='ps-9 w-40'
@@ -380,7 +372,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 								<PopoverTrigger asChild>
 									<Button variant='outline'>
 										<Filter />
-										Blockchain
+										Фильтр
 										{selectedStatuses.length > 0 && (
 											<Badge size='sm' appearance='outline'>
 												{selectedStatuses.length}
@@ -421,7 +413,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 						</div>
 					</CardHeading>
 					<CardToolbar>
-						<Button>
+						<Button onClick={() => {}} disabled={true}>
 							<Plus />
 							Add new
 						</Button>
@@ -429,7 +421,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				</CardHeader>
 
 				<CardTable>
-					<ScrollArea>
+					<ScrollArea className='max-h-screen'>
 						<DataGridTable />
 						<ScrollBar orientation='horizontal' />
 					</ScrollArea>
