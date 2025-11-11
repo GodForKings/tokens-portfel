@@ -59,7 +59,7 @@ import {
 import { Ellipsis, Filter, Plus, Search, X } from 'lucide-react'
 import { toast } from 'sonner'
 import { PAGINATION } from '@/shared/constants'
-import { cn, PAGES, type CoinGeckoToken } from '@/shared'
+import { cn, PAGES, type CoinGeckoToken, numberFormation } from '@/shared'
 import Link from 'next/link'
 
 function ActionsCell({ row }: { row: Row<CoinGeckoToken> }) {
@@ -202,7 +202,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 						appearance={'light'}
 						size={'lg'}
 					>
-						$ {row.original.current_price}
+						{numberFormation(row.original.current_price)}
 					</Badge>
 				),
 				size: 120,
@@ -223,7 +223,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				cell: ({ row }) => {
 					return (
 						<Badge variant={'secondary'} appearance={'outline'} size={'lg'}>
-							$ {row.original.low_24h}
+							{numberFormation(row.original.low_24h)}
 						</Badge>
 					)
 				},
@@ -245,7 +245,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				cell: ({ row }) => {
 					return (
 						<Badge variant={'outline'} size={'lg'}>
-							$ {row.original.high_24h}
+							{numberFormation(row.original.high_24h)}
 						</Badge>
 					)
 				},
@@ -271,7 +271,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 							appearance={'outline'}
 							size={'lg'}
 						>
-							{row.original.price_change_percentage_24h}%
+							{numberFormation(row.original.price_change_percentage_24h, '%')}
 						</Badge>
 					)
 				},
@@ -296,7 +296,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				),
 				cell: ({ row }) => (
 					<div className='flex items-center font-medium text-foreground'>
-						$ {row.original.market_cap}
+						{numberFormation(row.original.market_cap)}
 					</div>
 				),
 				size: 150,

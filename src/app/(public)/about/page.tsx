@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import type { FC } from 'react'
 
 import { cn } from '@/shared'
+import { ListInfo } from '@/features/info-about-us'
 
 export const metadata: Metadata = {
 	title: 'О проекте Crypto Portfel от ITDextra',
@@ -16,7 +17,7 @@ const About: FC = () => {
 				'flex flex-col justify-center items-center'
 			)}
 		>
-			The Page is still under development
+			<ListInfo />
 		</div>
 	)
 }
