@@ -1,3 +1,4 @@
+'use client'
 import type {
 	ColumnDef,
 	PaginationState,
@@ -56,55 +57,10 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 
-import { Ellipsis, Filter, Plus, Search, X } from 'lucide-react'
-import { toast } from 'sonner'
+import { Plus, Search, X } from 'lucide-react'
 import { PAGINATION } from '@/shared/constants'
 import { cn, PAGES, type CoinGeckoToken, numberFormation } from '@/shared'
 import Link from 'next/link'
-
-function ActionsCell({ row }: { row: Row<CoinGeckoToken> }) {
-	const { copy } = useCopyToClipboard()
-	const handleCopyId = () => {
-		copy(row.original.id)
-		const message = `TokenName successfully copied: ${row.original.id}`
-		toast.custom(
-			t => (
-				<Alert
-					variant='mono'
-					icon='primary'
-					close={false}
-					onClose={() => toast.dismiss(t)}
-				>
-					<AlertIcon>
-						<RiCheckboxCircleFill />
-					</AlertIcon>
-					<AlertTitle>{message}</AlertTitle>
-				</Alert>
-			),
-			{
-				position: 'top-center',
-			}
-		)
-	}
-
-	return (
-		<DropdownMenu>
-			<DropdownMenuTrigger asChild>
-				<Button className='size-7' mode='icon' variant='ghost'>
-					<Ellipsis />
-				</Button>
-			</DropdownMenuTrigger>
-			<DropdownMenuContent side='bottom' align='end'>
-				<DropdownMenuItem onClick={() => {}}>Edit</DropdownMenuItem>
-				<DropdownMenuItem onClick={handleCopyId}>Copy ID</DropdownMenuItem>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem variant='destructive' onClick={() => {}}>
-					Delete
-				</DropdownMenuItem>
-			</DropdownMenuContent>
-		</DropdownMenu>
-	)
-}
 
 interface DataGridViewProps {
 	dataTokens?: CoinGeckoToken[]
@@ -122,31 +78,16 @@ const DataGridView: FC<DataGridViewProps> = props => {
 		{ id: 'Рыночная капитализация', desc: true },
 	])
 	const [searchQuery, setSearchQuery] = useState('')
-	const [selectedStatuses, setSelectedStatuses] = useState<string[]>([]) // category
 
 	const filteredData = useMemo(() => {
 		return dataTokens?.filter(item => {
-			// Filter by status
-			const matchesStatus =
-				!selectedStatuses?.length || selectedStatuses.includes(item.name)
-
 			const searchLower = searchQuery.toLowerCase()
-			const matchesSearch =
+			return (
 				!searchQuery ||
 				Object.values(item).join(' ').toLowerCase().includes(searchLower)
-
-			return matchesStatus && matchesSearch
+			)
 		})
-	}, [searchQuery, selectedStatuses, isLoading])
-
-	// category event
-	const handleStatusChange = (checked: boolean, value: string) => {
-		setSelectedStatuses(
-			(
-				prev = [] // Default to an empty array
-			) => (checked ? [...prev, value] : prev.filter(v => v !== value))
-		)
-	}
+	}, [searchQuery, isLoading])
 
 	const columns = useMemo<ColumnDef<CoinGeckoToken>[]>(
 		() => [
@@ -177,7 +118,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 						</div>
 					)
 				},
-				size: 100,
+				size: 120,
 				enableSorting: true,
 				enableResizing: true,
 				enableHiding: false,
@@ -207,7 +148,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				),
 				size: 120,
 				enableSorting: true,
-				enableResizing: true,
+				enableResizing: false,
 				enableHiding: false,
 			},
 			{
@@ -295,7 +236,9 @@ const DataGridView: FC<DataGridViewProps> = props => {
 					/>
 				),
 				cell: ({ row }) => (
-					<div className='flex items-center font-medium text-foreground'>
+					<div
+						className={cn('flex items-center', 'font-medium text-foreground')}
+					>
 						{numberFormation(row.original.market_cap)}
 					</div>
 				),
@@ -348,74 +291,31 @@ const DataGridView: FC<DataGridViewProps> = props => {
 			<Card>
 				<CardHeader className='py-4'>
 					<CardHeading>
-						<div className='flex items-center gap-2.5'>
-							<div className='relative'>
-								<Search className='size-4 text-muted-foreground absolute start-3 top-1/2 -translate-y-1/2' />
-								<Input
-									placeholder='Поиск...'
-									value={searchQuery}
-									onChange={e => setSearchQuery(e.target.value)}
-									className='ps-9 w-40'
-								/>
-								{searchQuery.length > 0 && (
-									<Button
-										mode='icon'
-										variant='ghost'
-										className='absolute end-1.5 top-1/2 -translate-y-1/2 h-6 w-6'
-										onClick={() => setSearchQuery('')}
-									>
-										<X />
-									</Button>
-								)}
-							</div>
-							<Popover>
-								<PopoverTrigger asChild>
-									<Button variant='outline'>
-										<Filter />
-										Фильтр
-										{selectedStatuses.length > 0 && (
-											<Badge size='sm' appearance='outline'>
-												{selectedStatuses.length}
-											</Badge>
-										)}
-									</Button>
-								</PopoverTrigger>
-								<PopoverContent className='w-40 p-3' align='start'>
-									<div className='space-y-3'>
-										<div className='text-xs font-medium text-muted-foreground'>
-											Filters
-										</div>
-										{/* <div className='space-y-3'>
-											{Object.keys(statusCounts).map(status => (
-												<div key={status} className='flex items-center gap-2.5'>
-													<Checkbox
-														id={status}
-														checked={selectedStatuses.includes(status)}
-														onCheckedChange={checked =>
-															handleStatusChange(checked === true, status)
-														}
-													/>
-													<Label
-														htmlFor={status}
-														className='grow flex items-center justify-between font-normal gap-1.5'
-													>
-														{status}
-														<span className='text-muted-foreground'>
-															{statusCounts[status]}
-														</span>
-													</Label>
-												</div>
-											))}
-										</div> */}
-									</div>
-								</PopoverContent>
-							</Popover>
+						<div className='relative'>
+							<Search className='size-4 text-muted-foreground absolute start-3 top-1/2 -translate-y-1/2' />
+							<Input
+								placeholder='Поиск...'
+								value={searchQuery}
+								onChange={e => setSearchQuery(e.target.value)}
+								className='ps-9 w-40'
+							/>
+							{searchQuery.length > 0 && (
+								<Button
+									mode='icon'
+									variant='ghost'
+									className='absolute end-1.5 top-1/2 -translate-y-1/2 h-6 w-6'
+									onClick={() => setSearchQuery('')}
+								>
+									<X />
+								</Button>
+							)}
 						</div>
 					</CardHeading>
+
 					<CardToolbar>
 						<Button onClick={() => {}} disabled={true}>
 							<Plus />
-							Add new
+							Об этой таблице
 						</Button>
 					</CardToolbar>
 				</CardHeader>
@@ -423,9 +323,11 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				<CardTable>
 					<ScrollArea className='max-h-screen'>
 						<DataGridTable />
+
 						<ScrollBar orientation='horizontal' />
 					</ScrollArea>
 				</CardTable>
+
 				<CardFooter>
 					<DataGridPagination />
 				</CardFooter>

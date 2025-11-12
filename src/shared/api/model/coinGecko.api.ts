@@ -1,8 +1,9 @@
-import type { CoinGeckoMarketRequest, CoinGeckoToken } from '@/shared'
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { DEFAULT_PARAMETERS } from '../lib/defaultInit.tokenApi'
+
+import type { CoinGeckoToken, CoinGeckoMarketRequest } from '@/shared'
+
 import { COINGECKO } from '@/shared/constants'
+import { DEFAULT_PARAMETERS } from '@/shared'
 
 export const apiCoinGecko = createApi({
 	reducerPath: 'apiCoinGecko ',
@@ -11,7 +12,7 @@ export const apiCoinGecko = createApi({
 	endpoints: build => ({
 		fetchTokensCoinGecko: build.query<
 			CoinGeckoToken[],
-			Partial<CoinGeckoMarketRequest>
+			Partial<CoinGeckoMarketRequest> | null
 		>({
 			query: params => ({
 				url: '/coins/markets',

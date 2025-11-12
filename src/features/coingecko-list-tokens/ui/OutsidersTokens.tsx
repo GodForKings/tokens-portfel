@@ -3,11 +3,13 @@ import type { FC } from 'react'
 
 import { apiCoinGecko } from '@/shared'
 import DataGridView from '@/shared/components/data-grid/DataGridView'
+import { BASE_POOLING } from '@/shared/constants'
 
-export const ListCoinGecko: FC = () => {
+export const OutsidersTokens: FC = () => {
 	const { data, isLoading } = apiCoinGecko.useFetchTokensCoinGeckoQuery(
-		{},
-		{ pollingInterval: 1000 * 120 }
+		{ page: 2 },
+		{ pollingInterval: BASE_POOLING }
 	)
-	return <DataGridView dataTokens={data} isLoading={isLoading} />
+
+	return <DataGridView isLoading={isLoading} dataTokens={data} />
 }
