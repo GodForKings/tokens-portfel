@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Data, PAGES, cn } from '@/shared'
-import NavMenu from '@/shared/components/base-navigation-menu/NavMenu'
+import { NavMenu } from '@/shared/components'
 
 export const Header: FC = () => {
 	return (

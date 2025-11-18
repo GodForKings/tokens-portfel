@@ -39,7 +39,7 @@ interface NavMenuProps {
 	menuItems: Data.IMenuItem[]
 }
 
-const NavMenu: FC<NavMenuProps> = props => {
+export const NavMenu: FC<NavMenuProps> = props => {
 	const { menuItems } = props
 
 	return (
@@ -78,7 +78,7 @@ const NavMenu: FC<NavMenuProps> = props => {
 									title={item.name}
 									key={item.description + item.href}
 								>
-									{item.description}
+									@{item.description}
 								</ListItem>
 							))}
 						</ul>
@@ -111,4 +111,3 @@ const NavMenu: FC<NavMenuProps> = props => {
 		</NavigationMenu>
 	)
 }
-export default NavMenu
