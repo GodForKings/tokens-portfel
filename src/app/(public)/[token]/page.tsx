@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import type { FC } from 'react'
 
 type TokenParams = { token: string | string[] | undefined }
 
@@ -19,7 +18,8 @@ export default async function TokenPage({
 }: {
 	params: Promise<TokenParams>
 }) {
+	console.log(await params)
 	const { token } = await params
 
-	return <div className='h-[80dvh]'>@{token}</div>
+	return <div className='min-h-fit'>@{token}</div>
 }

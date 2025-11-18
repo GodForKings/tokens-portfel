@@ -4,3 +4,5 @@ export { PAGES } from './config/pages.config'
 export * as Data from './data/menu.data'
 
 export * from './api'
+export * from './types/main.types'
+export * from './types/constants.types'

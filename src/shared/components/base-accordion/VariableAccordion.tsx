@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+import type { FAQItem } from '@/shared'
 
 import {
 	Accordion,
@@ -8,33 +9,32 @@ import {
 	AccordionTrigger,
 } from '@/shared/components/ui/base-accordion'
 
-export const VariableAccordion: FC = () => {
+interface VariableAccordionProps {
+	faqItems: FAQItem[]
+	variant?: 'default' | 'outline' | 'solid' | null
+	multiple?: boolean | undefined
+	indicator?: 'plus' | 'arrow' | 'none'
+}
+
+export const VariableAccordion: FC<VariableAccordionProps> = props => {
+	const { faqItems } = props
+
 	return (
-		<Accordion variant='solid' multiple={false} className='w-full lg:w-[75%]'>
-			<AccordionItem value='reui-1'>
-				<AccordionHeader>
-					<AccordionTrigger>Вопрос?</AccordionTrigger>
-				</AccordionHeader>
-				<AccordionPanel>
-					Ответ ReUI provides ready-to-use CRUD examples for developers.
-				</AccordionPanel>
-			</AccordionItem>
-			<AccordionItem value='reui-2'>
-				<AccordionHeader>
-					<AccordionTrigger>Who benefits from ReUI?</AccordionTrigger>
-				</AccordionHeader>
-				<AccordionPanel>
-					Developers looking to save time with pre-built CRUD solutions.
-				</AccordionPanel>
-			</AccordionItem>
-			<AccordionItem value='reui-3'>
-				<AccordionHeader>
-					<AccordionTrigger>Why choose ReUI?</AccordionTrigger>
-				</AccordionHeader>
-				<AccordionPanel>
-					ReUI simplifies development with plug-and-play CRUDs.
-				</AccordionPanel>
-			</AccordionItem>
+		<Accordion
+			variant='solid'
+			indicator='plus'
+			multiple={true}
+			className='w-full lg:w-3/4'
+		>
+			{faqItems?.map(item => (
+				<AccordionItem value={`reui-${item.id}`} key={item.id}>
+					<AccordionHeader>
+						<AccordionTrigger>{item.question}</AccordionTrigger>
+					</AccordionHeader>
+
+					<AccordionPanel>{item.answer}</AccordionPanel>
+				</AccordionItem>
+			))}
 		</Accordion>
 	)
 }

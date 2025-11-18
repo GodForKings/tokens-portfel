@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Data, PAGES, cn } from '@/shared'
+import NavMenu from '@/shared/components/base-navigation-menu/NavMenu'
 
 export const Header: FC = () => {
 	return (
@@ -23,13 +24,7 @@ export const Header: FC = () => {
 				/>
 			</Link>
 
-			<ul className={cn('flex gap-3')}>
-				{Data.NAV_MENU.map(item => (
-					<li key={item.name}>
-						<Link href={item.href}>{item.name}</Link>
-					</li>
-				))}
-			</ul>
+			<NavMenu menuItems={Data.NAV_MENU} />
 		</header>
 	)
 }

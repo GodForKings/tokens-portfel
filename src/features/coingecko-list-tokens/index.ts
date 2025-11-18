@@ -1,2 +1,1 @@
-export { BestCoinGecko } from './ui/BestCoinGecko'
-export { OutsidersTokens } from './ui/OutsidersTokens'
+export { CoinGeckoTable } from './ui/CoinGeckoTable'

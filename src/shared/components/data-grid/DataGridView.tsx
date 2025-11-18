@@ -2,13 +2,10 @@
 import type {
 	ColumnDef,
 	PaginationState,
-	Row,
 	SortingState,
 } from '@tanstack/react-table'
 
 import { useMemo, useState, type FC } from 'react'
-import { useCopyToClipboard } from '@/shared/hooks'
-import { Alert, AlertIcon, AlertTitle } from '@/shared/components/ui/alert'
 import {
 	Avatar,
 	AvatarFallback,
@@ -24,31 +21,12 @@ import {
 	CardTable,
 	CardToolbar,
 } from '@/shared/components/ui/card'
-import { Checkbox } from '@/shared/components/ui/checkbox'
 import { DataGrid } from '@/shared/components/ui/data-grid'
 import { DataGridColumnHeader } from '@/shared/components/ui/data-grid-column-header'
 import { DataGridPagination } from '@/shared/components/ui/data-grid-pagination'
-import {
-	DataGridTable,
-	DataGridTableRowSelect,
-	DataGridTableRowSelectAll,
-} from '@/shared/components/ui/data-grid-table'
-import {
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/shared/components/ui/dropdown-menu'
+import { DataGridTable } from '@/shared/components/ui/data-grid-table'
 import { Input } from '@/shared/components/ui/input'
-import { Label } from '@/shared/components/ui/label'
-import {
-	Popover,
-	PopoverContent,
-	PopoverTrigger,
-} from '@/shared/components/ui/popover'
 import { ScrollArea, ScrollBar } from '@/shared/components/ui/scroll-area'
-import { DropdownMenu } from '@radix-ui/react-dropdown-menu'
-import { RiCheckboxCircleFill } from '@remixicon/react'
 import {
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -67,7 +45,7 @@ interface DataGridViewProps {
 	isLoading: boolean
 }
 
-const DataGridView: FC<DataGridViewProps> = props => {
+export const DataGridView: FC<DataGridViewProps> = props => {
 	const { dataTokens, isLoading } = props
 
 	const [pagination, setPagination] = useState<PaginationState>({
@@ -148,7 +126,7 @@ const DataGridView: FC<DataGridViewProps> = props => {
 				),
 				size: 120,
 				enableSorting: true,
-				enableResizing: false,
+				enableResizing: true,
 				enableHiding: false,
 			},
 			{
@@ -293,12 +271,14 @@ const DataGridView: FC<DataGridViewProps> = props => {
 					<CardHeading>
 						<div className='relative'>
 							<Search className='size-4 text-muted-foreground absolute start-3 top-1/2 -translate-y-1/2' />
+
 							<Input
 								placeholder='Поиск...'
 								value={searchQuery}
 								onChange={e => setSearchQuery(e.target.value)}
 								className='ps-9 w-40'
 							/>
+
 							{searchQuery.length > 0 && (
 								<Button
 									mode='icon'
@@ -335,5 +315,3 @@ const DataGridView: FC<DataGridViewProps> = props => {
 		</DataGrid>
 	)
 }
-
-export default DataGridView
