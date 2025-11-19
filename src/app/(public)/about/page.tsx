@@ -11,14 +11,9 @@ export const metadata: Metadata = {
 }
 const About: FC = () => {
 	return (
-		<div
-			className={cn(
-				'p-1 lg:p-4 min-h-screen',
-				'flex flex-col justify-center items-center'
-			)}
-		>
+		<>
 			<ListInfo />
-		</div>
+		</>
 	)
 }
 

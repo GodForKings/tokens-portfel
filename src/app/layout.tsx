@@ -27,7 +27,7 @@ const RootLayout: FC<Readonly<RootLayoutProps>> = props => {
 		<html lang='ru' className='dark'>
 			<body
 				className={cn(
-					'text-base antialiased',
+					'text-base antialiased overflow-x-hidden',
 					'flex flex-col isolate',
 					inter.className
 				)}

@@ -24,7 +24,7 @@ export const VariableAccordion: FC<VariableAccordionProps> = props => {
 			variant='solid'
 			indicator='plus'
 			multiple={true}
-			className='w-full lg:w-3/4'
+			className='w-full'
 		>
 			{faqItems?.map(item => (
 				<AccordionItem value={`reui-${item.id}`} key={item.id}>

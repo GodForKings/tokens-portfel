@@ -10,7 +10,8 @@ export const Header: FC = () => {
 		<header
 			className={cn(
 				'flex items-center justify-between',
-				'bg-black border-b border-white/10 px-6 py-4'
+				'sticky top-0 z-50 w-full backdrop-blur-sm supports-backdrop-filter:bg-background/60 px-6 py-2',
+				'border-b border-border'
 			)}
 		>
 			<Link href={PAGES.HOME} className=''>

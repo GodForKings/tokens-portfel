@@ -78,7 +78,7 @@ export const NavMenu: FC<NavMenuProps> = props => {
 									title={item.name}
 									key={item.description + item.href}
 								>
-									@{item.description}
+									{item.description}
 								</ListItem>
 							))}
 						</ul>
@@ -92,12 +92,16 @@ export const NavMenu: FC<NavMenuProps> = props => {
 						<ul
 							className={cn(
 								'grid md:grid-cols-2 lg:grid-cols-3 gap-2',
-								'md:w-[400px] lg:w-[500px]'
+								'md:w-[400px] lg:w-[600px]'
 							)}
 						>
-							{Object.entries(CATEGORY_TOKENS).map(([label, slug]) => (
-								<ListItem key={slug} href={PAGES.CATEGORY(slug)} title={label}>
-									...
+							{CATEGORY_TOKENS.map(category => (
+								<ListItem
+									href={PAGES.CATEGORY(category.link)}
+									title={category.name}
+									key={category.id}
+								>
+									{category.desc}
 								</ListItem>
 							))}
 						</ul>

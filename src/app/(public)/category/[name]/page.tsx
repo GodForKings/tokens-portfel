@@ -30,9 +30,7 @@ export default async function CategoryPage({
 
 	if (
 		typeof name === 'string' &&
-		Object.values(CATEGORY_TOKENS).some(
-			el => el.toLowerCase() === name.toLowerCase()
-		)
+		CATEGORY_TOKENS.some(el => el.link.toLowerCase() === name.toLowerCase())
 	) {
 		return (
 			<div className={cn('relative min-h-fit')}>

@@ -140,9 +140,6 @@ export type CategoryTokens =
 	| 'gaming' // GameFi
 	| 'artificial-intelligence' // AI-токены
 	| 'real-world-assets-rwa' // RWA
-	| 'bridge' // Бриджы
-	| 'centralized-exchange' // CEX
-	| 'derivatives' // Деривативы
 	| 'liquid-staking' // Liquid Staking
 	| 'restaking' // Restaking
 	| 'depin' // DePIN

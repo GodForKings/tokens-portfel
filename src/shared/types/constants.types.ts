@@ -1,3 +1,5 @@
+import type { CategoryTokens } from '@/shared'
+
 export type CategoryNames =
 	| 'DeFi'
 	| 'Стейблкоины'
@@ -12,9 +14,13 @@ export type CategoryNames =
 	| 'GameFi'
 	| 'AI-токены'
 	| 'RWA'
-	| 'Бриджы'
-	| 'CEX'
-	| 'Деривативы'
 	| 'LiquidStaking'
 	| 'Restaking'
 	| 'DePIN'
+
+export interface ITokenCategoryList {
+	id: number
+	link: CategoryTokens
+	name: CategoryNames
+	desc: string
+}
