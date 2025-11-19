@@ -3,5 +3,5 @@ export const PAGES = {
 	ABOUT: '/about',
 	BINANCE: '/binance',
 	CATEGORY: (category: string) => `/category/${category}`,
-	TOKEN_INFO: (token: string) => `/${token}`,
+	TOKEN_INFO: (token: string) => `/token/${token}`,
 }

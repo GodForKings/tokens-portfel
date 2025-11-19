@@ -5,6 +5,7 @@ import { CoinGeckoTable } from '@/features'
 import { PAGES, type CategoryTokens, cn } from '@/shared'
 
 import { CATEGORY_TOKENS } from '@/shared/constants'
+import { BaseAlertDialogDismiss, BreadcrumbCard } from '@/shared/components'
 
 type CategoryParams = { name: string | undefined }
 
@@ -28,13 +29,28 @@ export default async function CategoryPage({
 }) {
 	const { name } = await params
 
-	if (
-		typeof name === 'string' &&
-		CATEGORY_TOKENS.some(el => el.link.toLowerCase() === name.toLowerCase())
-	) {
+	const category = CATEGORY_TOKENS.find(
+		item => item.link.toLocaleLowerCase() === name?.toLocaleLowerCase()
+	)
+
+	if (typeof name === 'string' && category) {
 		return (
-			<div className={cn('relative min-h-fit')}>
-				<CoinGeckoTable reqParams={{ category: name as CategoryTokens }} />
+			<div
+				className={cn(
+					'relative',
+					'flex flex-col justify-center items-start gap-4'
+				)}
+			>
+				<BreadcrumbCard
+					listBreadcrumb={[{ label: category.name, href: category.link }]}
+				/>
+				<CoinGeckoTable reqParams={{ category: category.link }}>
+					<BaseAlertDialogDismiss
+						textInBtn={'Об этой таблице'}
+						titleText={category.name}
+						descText={category.desc}
+					/>
+				</CoinGeckoTable>
 			</div>
 		)
 	} else redirect(PAGES.HOME)

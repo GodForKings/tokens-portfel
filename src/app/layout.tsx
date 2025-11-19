@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
+import type { FC } from 'react'
 
-import { Suspense, type FC } from 'react'
+import { Suspense } from 'react'
 import { Inter } from 'next/font/google'
 import './globals.css'
 

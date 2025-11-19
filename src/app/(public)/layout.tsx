@@ -10,9 +10,9 @@ const Layout: FC<LayoutProps> = props => {
 	return (
 		<main
 			className={cn(
-				'relative',
+				'relative container',
 				'flex flex-col items-center gap-2 lg:gap-6',
-				'p-2 lg:p-4 min-h-screen container'
+				'p-2 lg:p-4 min-h-screen'
 			)}
 		>
 			{children}

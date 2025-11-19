@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 
+import { BreadcrumbCard } from '@/shared/components'
+
 type TokenParams = { token: string | string[] | undefined }
 
 export async function generateMetadata({
@@ -18,8 +20,14 @@ export default async function TokenPage({
 }: {
 	params: Promise<TokenParams>
 }) {
-	console.log(await params)
 	const { token } = await params
 
-	return <div className='min-h-fit'>@{token}</div>
+	return (
+		<>
+			<BreadcrumbCard
+				listBreadcrumb={[{ label: `${token}`.toUpperCase(), href: `${token}` }]}
+			/>
+			@{token}
+		</>
+	)
 }

@@ -35,18 +35,19 @@ import {
 	useReactTable,
 } from '@tanstack/react-table'
 
-import { Plus, Search, X } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { PAGINATION } from '@/shared/constants'
 import { cn, PAGES, type CoinGeckoToken, numberFormation } from '@/shared'
 import Link from 'next/link'
 
 interface DataGridViewProps {
+	children: React.ReactNode
 	dataTokens?: CoinGeckoToken[]
 	isLoading: boolean
 }
 
 export const DataGridView: FC<DataGridViewProps> = props => {
-	const { dataTokens, isLoading } = props
+	const { children, dataTokens, isLoading } = props
 
 	const [pagination, setPagination] = useState<PaginationState>({
 		pageIndex: 0,
@@ -292,12 +293,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 						</div>
 					</CardHeading>
 
-					<CardToolbar>
-						<Button onClick={() => {}} disabled={true}>
-							<Plus />
-							Об этой таблице
-						</Button>
-					</CardToolbar>
+					<CardToolbar>{children}</CardToolbar>
 				</CardHeader>
 
 				<CardTable>

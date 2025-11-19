@@ -1,8 +1,9 @@
 import type { Metadata } from 'next'
 import type { FC } from 'react'
 
-import { cn } from '@/shared'
+import { PAGES, cn } from '@/shared'
 import { ListInfo } from '@/features/info-about-us'
+import { BreadcrumbCard } from '@/shared/components'
 
 export const metadata: Metadata = {
 	title: 'О проекте Crypto Portfel от ITDextra',
@@ -12,6 +13,9 @@ export const metadata: Metadata = {
 const About: FC = () => {
 	return (
 		<>
+			<BreadcrumbCard
+				listBreadcrumb={[{ label: 'О нас', href: PAGES.ABOUT }]}
+			/>
 			<ListInfo />
 		</>
 	)
