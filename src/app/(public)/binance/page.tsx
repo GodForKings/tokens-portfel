@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import type { FC } from 'react'
 
-import { AddTokenToPortfolio } from '@/features'
+import { AddTokenToPortfolio, BinanceTokens } from '@/features'
+import { BreadcrumbCard } from '@/shared/components'
+import { PAGES } from '@/shared'
 
 export const metadata: Metadata = {
 	title: 'Список монет на бирже Binance | Актуальные цены криптовалют Binance',
@@ -11,9 +13,15 @@ export const metadata: Metadata = {
 
 const Binance: FC = () => {
 	return (
-		<main className='p-1 lg:p-4 min-h-screen'>
+		<>
+			<BreadcrumbCard
+				listBreadcrumb={[{ label: 'Binance', href: PAGES.BINANCE }]}
+			/>
+
+			<BinanceTokens />
+
 			<AddTokenToPortfolio />
-		</main>
+		</>
 	)
 }
 

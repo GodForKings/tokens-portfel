@@ -122,7 +122,13 @@ export interface IToken {
 	count: number
 }
 
+/**
+ * Тип под WebSocket
+ * @returns
+ * s - символ
+ * c - текущая цена
+ */
 export interface ITokenWSS {
-	s: string // "BTCUSDT"
+	s: string // symbol "BTCUSDT"
 	c: number // current price
 }

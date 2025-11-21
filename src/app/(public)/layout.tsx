@@ -11,7 +11,7 @@ const Layout: FC<LayoutProps> = props => {
 		<main
 			className={cn(
 				'relative container',
-				'flex flex-col items-center gap-2 lg:gap-6',
+				'flex flex-col items-start justify-start gap-2 lg:gap-6',
 				'p-2 lg:p-4 min-h-screen'
 			)}
 		>
