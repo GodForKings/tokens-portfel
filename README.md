@@ -15,7 +15,7 @@
 
 ## О проекте
 
-`crypto-portfel` — это современное веб-приложение для управления криптовалютным портфелем.
+`crypto-portfel` - это современное веб-приложение для управления криптовалютным портфелем.
 Построено на **Next.js 16 (App Router)**, **React 19**, **TypeScript**, **Tailwind CSS 4** и следует архитектуре **Feature-Sliced Design (FSD)**.
 
 ## Технологии
@@ -24,13 +24,13 @@
 - **React 19** + **React DOM**
 - **TypeScript 5**
 - **Tailwind CSS 4** + `tw-animate-css`
-- **FSD (Feature-Sliced Design)** — модульная, масштабируемая архитектура
-- **Redux Toolkit** + **React Redux** — управление состоянием
-- **React Hook Form** + **Zod** — валидация форм
-- **@tanstack/react-table** — таблицы
-- **@dnd-kit** — drag & drop (перемещение активов)
-- **GSAP** + **Framer Motion** — анимации
-- **Radix UI** + **Base UI Components** — доступные примитивы
+- **FSD (Feature-Sliced Design)** - модульная, масштабируемая архитектура
+- **Redux Toolkit** + **React Redux** - управление состоянием
+- **React Hook Form** + **Zod** - валидация форм
+- **@tanstack/react-table** - таблицы
+- **@dnd-kit** - drag & drop (перемещение активов)
+- **GSAP** + **Framer Motion** - анимации
+- **Radix UI** + **Base UI Components** - доступные примитивы
 
 ## Структура проекта (FSD)
 

@@ -124,7 +124,7 @@ type Locale =
 
 /**
  * Варианты категорий токенов
- * @description все категории монет — РЕАЛЬНЫЕ SLUGS из CoinGecko
+ * @description все категории монет - РЕАЛЬНЫЕ SLUGS из CoinGecko
  */
 export type CategoryTokens =
 	| 'decentralized_finance_defi' // Децентрализованные финансы (DeFi)

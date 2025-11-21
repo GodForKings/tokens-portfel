@@ -1,11 +1,12 @@
 'use client'
+import { useMemo, useState, type FC } from 'react'
+import Link from 'next/link'
+
 import type {
 	ColumnDef,
 	PaginationState,
 	SortingState,
 } from '@tanstack/react-table'
-
-import { useMemo, useState, type FC } from 'react'
 import {
 	Avatar,
 	AvatarFallback,
@@ -38,7 +39,6 @@ import {
 import { Search, X } from 'lucide-react'
 import { PAGINATION } from '@/shared/constants'
 import { cn, PAGES, type CoinGeckoToken, numberFormation } from '@/shared'
-import Link from 'next/link'
 
 interface DataGridViewProps {
 	children: React.ReactNode
@@ -66,7 +66,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				Object.values(item).join(' ').toLowerCase().includes(searchLower)
 			)
 		})
-	}, [searchQuery, isLoading])
+	}, [searchQuery, isLoading, dataTokens])
 
 	const columns = useMemo<ColumnDef<CoinGeckoToken>[]>(
 		() => [
