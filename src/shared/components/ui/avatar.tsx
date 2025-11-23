@@ -1,11 +1,12 @@
 'use client'
 
-import { cn } from '@/shared/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Avatar as AvatarPrimitive } from 'radix-ui'
 
+import { cn } from '@/shared/lib/utils'
+
 const avatarStatusVariants = cva(
-	'flex items-center rounded-full size-2 border-2 border-background',
+	'border-background flex size-2 items-center rounded-full border-2',
 	{
 		variants: {
 			variant: {
@@ -18,26 +19,20 @@ const avatarStatusVariants = cva(
 		defaultVariants: {
 			variant: 'online',
 		},
-	}
+	},
 )
 
-function Avatar({
-	className,
-	...props
-}: React.ComponentProps<typeof AvatarPrimitive.Root>) {
+function Avatar({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Root>) {
 	return (
 		<AvatarPrimitive.Root
 			data-slot='avatar'
-			className={cn('relative flex shrink-0 size-10', className)}
+			className={cn('relative flex size-10 shrink-0', className)}
 			{...props}
 		/>
 	)
 }
 
-function AvatarImage({
-	className,
-	...props
-}: React.ComponentProps<typeof AvatarPrimitive.Image>) {
+function AvatarImage({ className, ...props }: React.ComponentProps<typeof AvatarPrimitive.Image>) {
 	return (
 		<div className={cn('relative overflow-hidden rounded-full', className)}>
 			<AvatarPrimitive.Image
@@ -57,25 +52,19 @@ function AvatarFallback({
 		<AvatarPrimitive.Fallback
 			data-slot='avatar-fallback'
 			className={cn(
-				'flex h-full w-full items-center justify-center rounded-full border border-border bg-accent text-accent-foreground text-xs',
-				className
+				'border-border bg-accent text-accent-foreground flex h-full w-full items-center justify-center rounded-full border text-xs',
+				className,
 			)}
 			{...props}
 		/>
 	)
 }
 
-function AvatarIndicator({
-	className,
-	...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+function AvatarIndicator({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
 	return (
 		<div
 			data-slot='avatar-indicator'
-			className={cn(
-				'absolute flex size-6 items-center justify-center',
-				className
-			)}
+			className={cn('absolute flex size-6 items-center justify-center', className)}
 			{...props}
 		/>
 	)
@@ -85,8 +74,7 @@ function AvatarStatus({
 	className,
 	variant,
 	...props
-}: React.HTMLAttributes<HTMLDivElement> &
-	VariantProps<typeof avatarStatusVariants>) {
+}: React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof avatarStatusVariants>) {
 	return (
 		<div
 			data-slot='avatar-status'
@@ -96,11 +84,4 @@ function AvatarStatus({
 	)
 }
 
-export {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-	AvatarIndicator,
-	AvatarStatus,
-	avatarStatusVariants,
-}
+export { Avatar, AvatarFallback, AvatarImage, AvatarIndicator, AvatarStatus, avatarStatusVariants }

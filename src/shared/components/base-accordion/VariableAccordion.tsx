@@ -1,6 +1,3 @@
-import type { FC } from 'react'
-import type { FAQItem } from '@/shared'
-
 import {
 	Accordion,
 	AccordionHeader,
@@ -8,6 +5,9 @@ import {
 	AccordionPanel,
 	AccordionTrigger,
 } from '@/shared/components/ui/base-accordion'
+
+import type { FAQItem } from '@/shared'
+import type { FC } from 'react'
 
 interface VariableAccordionProps {
 	faqItems: FAQItem[]
@@ -20,12 +20,7 @@ export const VariableAccordion: FC<VariableAccordionProps> = props => {
 	const { faqItems } = props
 
 	return (
-		<Accordion
-			variant='solid'
-			indicator='plus'
-			multiple={true}
-			className='w-full'
-		>
+		<Accordion variant='solid' indicator='plus' multiple={true} className='w-full'>
 			{faqItems?.map(item => (
 				<AccordionItem value={`reui-${item.id}`} key={item.id}>
 					<AccordionHeader>

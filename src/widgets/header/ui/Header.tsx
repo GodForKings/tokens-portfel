@@ -1,17 +1,19 @@
-import type { FC } from 'react'
-
-import Link from 'next/link'
 import Image from 'next/image'
-import { Data, PAGES, cn } from '@/shared'
+import Link from 'next/link'
+
 import { NavMenu } from '@/shared/components'
+
+import { Data, PAGES, cn } from '@/shared'
+
+import type { FC } from 'react'
 
 export const Header: FC = () => {
 	return (
 		<header
 			className={cn(
 				'flex items-center justify-between',
-				'sticky top-0 z-50 w-full backdrop-blur-sm supports-backdrop-filter:bg-background/60 px-6 py-2',
-				'border-b border-border'
+				'supports-backdrop-filter:bg-background/60 sticky top-0 z-50 w-full px-6 py-2 backdrop-blur-sm',
+				'border-border border-b',
 			)}
 		>
 			<Link href={PAGES.HOME} className=''>

@@ -1,6 +1,6 @@
-import type { FC } from 'react'
-
 import { cn } from '@/shared'
+
+import type { FC } from 'react'
 
 interface ColWrapProps {
 	children: React.ReactNode

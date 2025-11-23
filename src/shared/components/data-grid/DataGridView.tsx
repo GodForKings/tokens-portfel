@@ -1,17 +1,19 @@
 'use client'
+
 import { useMemo, useState, type FC } from 'react'
+
 import Link from 'next/link'
 
-import type {
-	ColumnDef,
-	PaginationState,
-	SortingState,
-} from '@tanstack/react-table'
 import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-} from '@/shared/components/ui/avatar'
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	useReactTable,
+} from '@tanstack/react-table'
+import { Search, X } from 'lucide-react'
+
+import { Avatar, AvatarFallback, AvatarImage } from '@/shared/components/ui/avatar'
 import { Badge } from '@/shared/components/ui/badge'
 import { Button } from '@/shared/components/ui/button'
 import {
@@ -28,17 +30,11 @@ import { DataGridPagination } from '@/shared/components/ui/data-grid-pagination'
 import { DataGridTable } from '@/shared/components/ui/data-grid-table'
 import { Input } from '@/shared/components/ui/input'
 import { ScrollArea, ScrollBar } from '@/shared/components/ui/scroll-area'
-import {
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
-	useReactTable,
-} from '@tanstack/react-table'
-
-import { Search, X } from 'lucide-react'
 import { PAGINATION } from '@/shared/constants'
+
 import { cn, PAGES, type CoinGeckoToken, numberFormation } from '@/shared'
+
+import type { ColumnDef, PaginationState, SortingState } from '@tanstack/react-table'
 
 interface DataGridViewProps {
 	children: React.ReactNode
@@ -61,10 +57,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 	const filteredData = useMemo(() => {
 		return dataTokens?.filter(item => {
 			const searchLower = searchQuery.toLowerCase()
-			return (
-				!searchQuery ||
-				Object.values(item).join(' ').toLowerCase().includes(searchLower)
-			)
+			return !searchQuery || Object.values(item).join(' ').toLowerCase().includes(searchLower)
 		})
 	}, [searchQuery, isLoading, dataTokens])
 
@@ -74,11 +67,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				accessorKey: 'name',
 				id: 'name',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='Монета'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='Монета' visibility={true} column={column} />
 				),
 				cell: ({ row }) => {
 					return (
@@ -90,9 +79,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 							</Avatar>
 
 							<Button mode={'link'} underline={'solid'}>
-								<Link href={PAGES.TOKEN_INFO(row.original.id)}>
-									{row.original.name}
-								</Link>
+								<Link href={PAGES.TOKEN_INFO(row.original.id)}>{row.original.name}</Link>
 							</Button>
 						</div>
 					)
@@ -106,19 +93,11 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				accessorKey: 'current_price',
 				id: 'current_price',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='Текущая цена'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='Текущая цена' visibility={true} column={column} />
 				),
 				cell: ({ row }) => (
 					<Badge
-						variant={
-							row.original.price_change_percentage_24h >= 0
-								? 'success'
-								: 'destructive'
-						}
+						variant={row.original.price_change_percentage_24h >= 0 ? 'success' : 'destructive'}
 						appearance={'light'}
 						size={'lg'}
 					>
@@ -134,11 +113,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				accessorKey: 'low_24h',
 				id: 'мин 24ч',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='мин. 24ч'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='мин. 24ч' visibility={true} column={column} />
 				),
 				cell: ({ row }) => {
 					return (
@@ -156,11 +131,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				accessorKey: 'high_24h',
 				id: 'макс 24ч',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='макс. 24ч'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='макс. 24ч' visibility={true} column={column} />
 				),
 				cell: ({ row }) => {
 					return (
@@ -183,11 +154,7 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				cell: ({ row }) => {
 					return (
 						<Badge
-							variant={
-								row.original.price_change_percentage_24h >= 0
-									? 'success'
-									: 'destructive'
-							}
+							variant={row.original.price_change_percentage_24h >= 0 ? 'success' : 'destructive'}
 							appearance={'outline'}
 							size={'lg'}
 						>
@@ -208,16 +175,10 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				accessorKey: 'market_cap',
 				id: 'Рыночная капитализация',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='Рыночная кап.'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='Рыночная кап.' visibility={true} column={column} />
 				),
 				cell: ({ row }) => (
-					<div
-						className={cn('flex items-center', 'font-medium text-foreground')}
-					>
+					<div className={cn('flex items-center', 'text-foreground font-medium')}>
 						{numberFormation(row.original.market_cap)}
 					</div>
 				),
@@ -227,11 +188,11 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				enableHiding: true,
 			},
 		],
-		[]
+		[],
 	)
 
 	const [columnOrder, setColumnOrder] = useState<string[]>(
-		columns.map(column => column.id as string)
+		columns.map(column => column.id as string),
 	)
 
 	const table = useReactTable({
@@ -271,20 +232,20 @@ export const DataGridView: FC<DataGridViewProps> = props => {
 				<CardHeader className='py-4'>
 					<CardHeading>
 						<div className='relative'>
-							<Search className='size-4 text-muted-foreground absolute start-3 top-1/2 -translate-y-1/2' />
+							<Search className='text-muted-foreground absolute start-3 top-1/2 size-4 -translate-y-1/2' />
 
 							<Input
 								placeholder='Поиск...'
 								value={searchQuery}
 								onChange={e => setSearchQuery(e.target.value)}
-								className='ps-9 w-40'
+								className='w-40 ps-9'
 							/>
 
 							{searchQuery.length > 0 && (
 								<Button
 									mode='icon'
 									variant='ghost'
-									className='absolute end-1.5 top-1/2 -translate-y-1/2 h-6 w-6'
+									className='absolute end-1.5 top-1/2 h-6 w-6 -translate-y-1/2'
 									onClick={() => setSearchQuery('')}
 								>
 									<X />

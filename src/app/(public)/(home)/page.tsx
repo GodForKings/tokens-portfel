@@ -1,6 +1,6 @@
-import { CoinGeckoTable } from '@/features'
-import { cn } from '@/shared'
 import { BaseAlertDialogDismiss } from '@/shared/components'
+
+import { CoinGeckoTable } from '@/features'
 import { WelcomeAccordion } from '@/widgets'
 
 export default function Home() {

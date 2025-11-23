@@ -1,4 +1,4 @@
-import { Data } from '@/shared'
+import type { Data } from '@/shared'
 
 export const CONTACT_MENU: Data.IMenuItem[] = [
 	{

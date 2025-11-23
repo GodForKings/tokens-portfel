@@ -1,8 +1,10 @@
+import { Suspense } from 'react'
+
+import { Inter } from 'next/font/google'
+
 import type { Metadata } from 'next'
 import type { FC } from 'react'
 
-import { Suspense } from 'react'
-import { Inter } from 'next/font/google'
 import './globals.css'
 
 import { Footer, Header } from '@/widgets'
@@ -28,9 +30,9 @@ const RootLayout: FC<Readonly<RootLayoutProps>> = props => {
 		<html lang='ru' className='dark'>
 			<body
 				className={cn(
-					'text-base antialiased overflow-x-hidden',
-					'flex flex-col isolate',
-					inter.className
+					'overflow-x-hidden text-base antialiased',
+					'isolate flex flex-col',
+					inter.className,
 				)}
 			>
 				{/* Верхняя навигация */}

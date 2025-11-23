@@ -38,19 +38,14 @@ const SMALL_VALUE_THRESHOLD = 0.01
  * @param typeForOut Тип данных для вывода
  * @returns Строка с отформатированным результатом
  */
-export const numberFormation = (
-	currentValue: number,
-	typeForOut: FormatType = 'USD'
-): string => {
+export const numberFormation = (currentValue: number, typeForOut: FormatType = 'USD'): string => {
 	// Для стандартных процентов
 	if (typeForOut === '%' && Math.abs(currentValue) < SMALL_VALUE_THRESHOLD)
 		return `${percentPreciseFormatter.format(currentValue)}%`
 	// Для маленьких процентов
-	if (typeForOut === '%')
-		return `${percentStandardFormatter.format(currentValue)}%`
+	if (typeForOut === '%') return `${percentStandardFormatter.format(currentValue)}%`
 	// Для больших значений
-	if (currentValue >= SMALL_VALUE_THRESHOLD)
-		return usdStandardFormatter.format(currentValue)
+	if (currentValue >= SMALL_VALUE_THRESHOLD) return usdStandardFormatter.format(currentValue)
 	// Дефолтный форматер
 	return usdPreciseFormatter.format(currentValue)
 }

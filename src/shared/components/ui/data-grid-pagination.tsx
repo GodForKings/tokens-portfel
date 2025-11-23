@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react'
+import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+
 import { Button } from '@/shared/components/ui/button'
 import { useDataGrid } from '@/shared/components/ui/data-grid'
 import {
@@ -9,8 +10,9 @@ import {
 	SelectValue,
 } from '@/shared/components/ui/select'
 import { Skeleton } from '@/shared/components/ui/skeleton'
-import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
 import { cn } from '@/shared/lib/utils'
+
+import type { ReactNode } from 'react'
 
 interface DataGridPaginationProps {
 	sizes?: number[]
@@ -69,12 +71,8 @@ function DataGridPagination(props: DataGridPaginationProps) {
 	const paginationMoreLimit = mergedProps?.moreLimit || 5
 
 	// Determine the start and end of the pagination group
-	const currentGroupStart =
-		Math.floor(pageIndex / paginationMoreLimit) * paginationMoreLimit
-	const currentGroupEnd = Math.min(
-		currentGroupStart + paginationMoreLimit,
-		pageCount
-	)
+	const currentGroupStart = Math.floor(pageIndex / paginationMoreLimit) * paginationMoreLimit
+	const currentGroupEnd = Math.min(currentGroupStart + paginationMoreLimit, pageCount)
 
 	// Render page buttons based on the current group
 	const renderPageButtons = () => {
@@ -96,7 +94,7 @@ function DataGridPagination(props: DataGridPaginationProps) {
 					}}
 				>
 					{i + 1}
-				</Button>
+				</Button>,
 			)
 		}
 		return buttons
@@ -142,18 +140,16 @@ function DataGridPagination(props: DataGridPaginationProps) {
 		<div
 			data-slot='data-grid-pagination'
 			className={cn(
-				'flex flex-wrap flex-col sm:flex-row justify-between items-center gap-2.5 py-2.5 sm:py-0 grow',
-				mergedProps?.className
+				'flex grow flex-col flex-wrap items-center justify-between gap-2.5 py-2.5 sm:flex-row sm:py-0',
+				mergedProps?.className,
 			)}
 		>
-			<div className='flex flex-wrap items-center space-x-2.5 pb-2.5 sm:pb-0 order-2 sm:order-1'>
+			<div className='order-2 flex flex-wrap items-center space-x-2.5 pb-2.5 sm:order-1 sm:pb-0'>
 				{isLoading ? (
 					mergedProps?.sizesSkeleton
 				) : (
 					<>
-						<div className='text-sm text-muted-foreground'>
-							{mergedProps.rowsPerPageLabel}
-						</div>
+						<div className='text-muted-foreground text-sm'>{mergedProps.rowsPerPageLabel}</div>
 						<Select
 							value={`${pageSize}`}
 							indicatorPosition='right'
@@ -176,16 +172,16 @@ function DataGridPagination(props: DataGridPaginationProps) {
 					</>
 				)}
 			</div>
-			<div className='flex flex-col sm:flex-row justify-center sm:justify-end items-center gap-2.5 pt-2.5 sm:pt-0 order-1 sm:order-2'>
+			<div className='order-1 flex flex-col items-center justify-center gap-2.5 pt-2.5 sm:order-2 sm:flex-row sm:justify-end sm:pt-0'>
 				{isLoading ? (
 					mergedProps?.infoSkeleton
 				) : (
 					<>
-						<div className='text-sm text-muted-foreground text-nowrap order-2 sm:order-1'>
+						<div className='text-muted-foreground order-2 text-sm text-nowrap sm:order-1'>
 							{paginationInfo}
 						</div>
 						{pageCount > 1 && (
-							<div className='flex items-center space-x-1 order-1 sm:order-2'>
+							<div className='order-1 flex items-center space-x-1 sm:order-2'>
 								<Button
 									size='sm'
 									mode='icon'
@@ -194,9 +190,7 @@ function DataGridPagination(props: DataGridPaginationProps) {
 									onClick={() => table.previousPage()}
 									disabled={!table.getCanPreviousPage()}
 								>
-									<span className='sr-only'>
-										{mergedProps.previousPageLabel}
-									</span>
+									<span className='sr-only'>{mergedProps.previousPageLabel}</span>
 									<ChevronLeftIcon className='size-4' />
 								</Button>
 

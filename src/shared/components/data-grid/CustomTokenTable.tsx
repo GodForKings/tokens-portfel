@@ -1,6 +1,18 @@
 'use client'
 import { useMemo, useState, type FC } from 'react'
 
+import {
+	getCoreRowModel,
+	getFilteredRowModel,
+	getPaginationRowModel,
+	getSortedRowModel,
+	useReactTable,
+	type ColumnDef,
+	type PaginationState,
+	type SortingState,
+} from '@tanstack/react-table'
+import { Search, X } from 'lucide-react'
+
 import { Badge } from '@/shared/components/ui/badge'
 import { Button } from '@/shared/components/ui/button'
 import {
@@ -16,20 +28,12 @@ import { DataGridColumnHeader } from '@/shared/components/ui/data-grid-column-he
 import { DataGridPagination } from '@/shared/components/ui/data-grid-pagination'
 import { DataGridTable } from '@/shared/components/ui/data-grid-table'
 import { ScrollArea, ScrollBar } from '@/shared/components/ui/scroll-area'
-import {
-	getCoreRowModel,
-	getFilteredRowModel,
-	getPaginationRowModel,
-	getSortedRowModel,
-	useReactTable,
-	type ColumnDef,
-	type PaginationState,
-	type SortingState,
-} from '@tanstack/react-table'
-import { Search, X } from 'lucide-react'
-import { numberFormation, cn } from '@/shared'
 import { PAGINATION } from '@/shared/constants'
+
+import { numberFormation } from '@/shared'
+
 import { Input } from '../ui/input'
+
 import type { IToken } from '@/entities'
 
 interface CustomTokenTableProps {
@@ -51,10 +55,7 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 	const filteredData = useMemo(() => {
 		return dataTokens?.filter(item => {
 			const searchLower = searchQuery.toLowerCase()
-			return (
-				!searchQuery ||
-				Object.values(item).join(' ').toLowerCase().includes(searchLower)
-			)
+			return !searchQuery || Object.values(item).join(' ').toLowerCase().includes(searchLower)
 		})
 	}, [searchQuery, isLoading, dataTokens])
 
@@ -64,11 +65,7 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				accessorKey: 'symbol',
 				id: 'symbol',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='Криптовалюта'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='Криптовалюта' visibility={true} column={column} />
 				),
 				cell: ({ row }) => {
 					return (
@@ -86,17 +83,11 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				accessorKey: 'lastPrice',
 				id: 'lastPrice',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='Актуальная цена'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='Актуальная цена' visibility={true} column={column} />
 				),
 				cell: ({ row }) => (
 					<Badge
-						variant={
-							Number(row.original.priceChange) >= 0 ? 'success' : 'destructive'
-						}
+						variant={Number(row.original.priceChange) >= 0 ? 'success' : 'destructive'}
 						appearance={'light'}
 						size={'lg'}
 					>
@@ -117,11 +108,7 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				cell: ({ row }) => {
 					return (
 						<Badge
-							variant={
-								Number(row.original.priceChangePercent) >= 0
-									? 'success'
-									: 'destructive'
-							}
+							variant={Number(row.original.priceChangePercent) >= 0 ? 'success' : 'destructive'}
 							appearance={'outline'}
 							size={'lg'}
 						>
@@ -142,11 +129,7 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				accessorKey: 'lowPrice',
 				id: 'мин 24ч',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='мин. 24ч'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='мин. 24ч' visibility={true} column={column} />
 				),
 				cell: ({ row }) => {
 					return (
@@ -164,11 +147,7 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				accessorKey: 'highPrice',
 				id: 'макс 24ч',
 				header: ({ column }) => (
-					<DataGridColumnHeader
-						title='макс. 24ч'
-						visibility={true}
-						column={column}
-					/>
+					<DataGridColumnHeader title='макс. 24ч' visibility={true} column={column} />
 				),
 				cell: ({ row }) => {
 					return (
@@ -183,11 +162,11 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				enableHiding: true,
 			},
 		],
-		[]
+		[],
 	)
 
 	const [columnOrder, setColumnOrder] = useState<string[]>(
-		columns.map(column => column.id as string)
+		columns.map(column => column.id as string),
 	)
 
 	const table = useReactTable({
@@ -227,20 +206,20 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				<CardHeader className='py-4'>
 					<CardHeading>
 						<div className='relative'>
-							<Search className='size-4 text-muted-foreground absolute start-3 top-1/2 -translate-y-1/2' />
+							<Search className='text-muted-foreground absolute start-3 top-1/2 size-4 -translate-y-1/2' />
 
 							<Input
 								placeholder='Поиск...'
 								value={searchQuery}
 								onChange={e => setSearchQuery(e.target.value)}
-								className='ps-9 w-40'
+								className='w-40 ps-9'
 							/>
 
 							{searchQuery.length > 0 && (
 								<Button
 									mode='icon'
 									variant='ghost'
-									className='absolute end-1.5 top-1/2 -translate-y-1/2 h-6 w-6'
+									className='absolute end-1.5 top-1/2 h-6 w-6 -translate-y-1/2'
 									onClick={() => setSearchQuery('')}
 								>
 									<X />

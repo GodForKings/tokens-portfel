@@ -1,7 +1,7 @@
 'use client'
-import type { FC } from 'react'
 
 import Link from 'next/link'
+
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -12,10 +12,12 @@ import {
 	NavigationMenuPositioner,
 	NavigationMenuTrigger,
 } from '@/shared/components/ui/base-navigation-menu'
-import { CircleCheckIcon, CircleHelpIcon, CircleIcon } from 'lucide-react'
-
-import { Data, PAGES, cn } from '@/shared'
 import { CATEGORY_TOKENS } from '@/shared/constants'
+
+import { PAGES, cn } from '@/shared'
+
+import type { Data } from '@/shared'
+import type { FC } from 'react'
 
 function ListItem({
 	title,
@@ -27,9 +29,7 @@ function ListItem({
 		<li {...props}>
 			<NavigationMenuLink render={<Link href={href} />}>
 				<div className='text-sm leading-none font-medium'>{title}</div>
-				<p className='text-muted-foreground line-clamp-2 text-sm leading-snug'>
-					{children}
-				</p>
+				<p className='text-muted-foreground line-clamp-2 text-sm leading-snug'>{children}</p>
 			</NavigationMenuLink>
 		</li>
 	)
@@ -49,12 +49,7 @@ export const NavMenu: FC<NavMenuProps> = props => {
 					<NavigationMenuTrigger>Меню</NavigationMenuTrigger>
 
 					<NavigationMenuContent>
-						<ul
-							className={cn(
-								'grid gap-2 lg:grid-cols-2',
-								'md:w-[400px] lg:w-[500px]'
-							)}
-						>
+						<ul className={cn('grid gap-2 lg:grid-cols-2', 'md:w-[400px] lg:w-[500px]')}>
 							<li className='row-span-3'>
 								<NavigationMenuLink
 									render={
@@ -73,11 +68,7 @@ export const NavMenu: FC<NavMenuProps> = props => {
 							</li>
 
 							{menuItems.map(item => (
-								<ListItem
-									href={item.href}
-									title={item.name}
-									key={item.description + item.href}
-								>
+								<ListItem href={item.href} title={item.name} key={item.description + item.href}>
 									{item.description}
 								</ListItem>
 							))}
@@ -91,8 +82,8 @@ export const NavMenu: FC<NavMenuProps> = props => {
 					<NavigationMenuContent>
 						<ul
 							className={cn(
-								'grid md:grid-cols-2 lg:grid-cols-3 gap-2',
-								'md:w-[400px] lg:w-[600px]'
+								'grid gap-2 md:grid-cols-2 lg:grid-cols-3',
+								'md:w-[400px] lg:w-[600px]',
 							)}
 						>
 							{CATEGORY_TOKENS.map(category => (

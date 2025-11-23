@@ -1,5 +1,4 @@
-import type { FC } from 'react'
-import { PAGES, type IBreadcrumbItem } from '@/shared'
+import { Home } from 'lucide-react'
 
 import {
 	Breadcrumb,
@@ -10,7 +9,10 @@ import {
 	BreadcrumbSeparator,
 } from '@/shared/components/ui/base-breadcrumb'
 import { Card, CardContent } from '@/shared/components/ui/card'
-import { Home } from 'lucide-react'
+
+import { PAGES, type IBreadcrumbItem } from '@/shared'
+
+import type { FC } from 'react'
 
 interface BreadcrumbCardProps {
 	listBreadcrumb: IBreadcrumbItem[]
@@ -40,9 +42,7 @@ export const BreadcrumbCard: FC<BreadcrumbCardProps> = props => {
 									</BreadcrumbItem>
 								) : (
 									<BreadcrumbItem>
-										<BreadcrumbLink href={item.href}>
-											{item?.icon || item.label}
-										</BreadcrumbLink>
+										<BreadcrumbLink href={item.href}>{item?.icon || item.label}</BreadcrumbLink>
 									</BreadcrumbItem>
 								)}
 							</ul>

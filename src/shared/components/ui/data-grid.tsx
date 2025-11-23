@@ -1,16 +1,12 @@
 'use client'
 
 import { createContext, useContext } from 'react'
+
 import { cn } from '@/shared/lib/utils'
-import type {
-	ColumnFiltersState,
-	RowData,
-	SortingState,
-	Table,
-} from '@tanstack/react-table'
+
+import type { ColumnFiltersState, RowData, SortingState, Table } from '@tanstack/react-table'
 
 declare module '@tanstack/react-table' {
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	interface ColumnMeta<TData extends RowData, TValue> {
 		headerTitle?: string
 		headerClassName?: string
@@ -90,10 +86,7 @@ export interface DataGridProps<TData extends object> {
 	}
 }
 
-const DataGridContext = createContext<
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	DataGridContextProps<any> | undefined
->(undefined)
+const DataGridContext = createContext<DataGridContextProps<any> | undefined>(undefined)
 
 function useDataGrid() {
 	const context = useContext(DataGridContext)
@@ -122,11 +115,7 @@ function DataGridProvider<TData extends object>({
 	)
 }
 
-function DataGrid<TData extends object>({
-	children,
-	table,
-	...props
-}: DataGridProps<TData>) {
+function DataGrid<TData extends object>({ children, table, ...props }: DataGridProps<TData>) {
 	const defaultProps: Partial<DataGridProps<TData>> = {
 		loadingMode: 'skeleton',
 		tableLayout: {
@@ -195,11 +184,7 @@ function DataGridContainer({
 	return (
 		<div
 			data-slot='data-grid'
-			className={cn(
-				'grid w-full',
-				border && 'border border-border rounded-lg',
-				className
-			)}
+			className={cn('grid w-full', border && 'border-border rounded-lg border', className)}
 		>
 			{children}
 		</div>

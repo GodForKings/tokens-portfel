@@ -1,4 +1,5 @@
 import { cn } from '@/shared'
+
 import type { FC } from 'react'
 
 interface LayoutProps {
@@ -12,7 +13,7 @@ const Layout: FC<LayoutProps> = props => {
 			className={cn(
 				'relative container',
 				'flex flex-col items-start justify-start gap-2 lg:gap-6',
-				'p-2 lg:p-4 min-h-screen'
+				'min-h-screen p-2 lg:p-4',
 			)}
 		>
 			{children}

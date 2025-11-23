@@ -1,8 +1,9 @@
 'use client'
-import type { FC } from 'react'
 import { Provider } from 'react-redux'
 
 import { store } from '../model/store'
+
+import type { FC } from 'react'
 
 interface StoreProviderProps {
 	children: React.ReactNode

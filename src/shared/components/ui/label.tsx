@@ -1,11 +1,12 @@
 'use client'
 
-import { cn } from '@/shared/lib/utils'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Label as LabelPrimitive } from 'radix-ui'
 
+import { cn } from '@/shared/lib/utils'
+
 const labelVariants = cva(
-	'text-sm leading-none text-foreground peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
+	'text-foreground text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-50',
 	{
 		variants: {
 			variant: {
@@ -16,15 +17,14 @@ const labelVariants = cva(
 		defaultVariants: {
 			variant: 'primary',
 		},
-	}
+	},
 )
 
 function Label({
 	className,
 	variant,
 	...props
-}: React.ComponentProps<typeof LabelPrimitive.Root> &
-	VariantProps<typeof labelVariants>) {
+}: React.ComponentProps<typeof LabelPrimitive.Root> & VariantProps<typeof labelVariants>) {
 	return (
 		<LabelPrimitive.Root
 			data-slot='label'

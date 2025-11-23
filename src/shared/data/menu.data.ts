@@ -15,8 +15,7 @@ export const NAV_MENU: IMenuItem[] = [
 	{
 		href: PAGES.BINANCE,
 		name: 'Binance',
-		description:
-			'Аналитика и данные токенов с Binance: курсы, изменения и статистика.',
+		description: 'Аналитика и данные токенов с Binance: курсы, изменения и статистика.',
 	},
 	{
 		href: PAGES.ABOUT,

@@ -1,6 +1,6 @@
-import type { Metadata } from 'next'
-
 import { BreadcrumbCard } from '@/shared/components'
+
+import type { Metadata } from 'next'
 
 type TokenParams = { token: string | string[] | undefined }
 
@@ -15,19 +15,13 @@ export async function generateMetadata({
 	}
 }
 
-export default async function TokenPage({
-	params,
-}: {
-	params: Promise<TokenParams>
-}) {
+export default async function TokenPage({ params }: { params: Promise<TokenParams> }) {
 	const { token } = await params
 
 	return (
 		<>
-			<BreadcrumbCard
-				listBreadcrumb={[{ label: `${token}`.toUpperCase(), href: `${token}` }]}
-			/>
-			@{token}
+			<BreadcrumbCard listBreadcrumb={[{ label: `${token}`.toUpperCase(), href: `${token}` }]} />@
+			{token}
 		</>
 	)
 }

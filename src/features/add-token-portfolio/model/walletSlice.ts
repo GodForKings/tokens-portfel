@@ -1,10 +1,10 @@
-import type { PayloadAction } from '@reduxjs/toolkit'
-
 import { createSlice } from '@reduxjs/toolkit'
+
+import { apiTokens } from '@/features'
 
 import type { IAsset } from './types'
 import type { IToken, ITokenWSS } from '@/entities'
-import { apiTokens } from '@/features'
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 interface WalletState {
 	assets: IAsset[]
@@ -41,9 +41,7 @@ const saveToStorage = (assets: IAsset[]) => {
 const recalculate = (assets: IAsset[]): { total: number; shares: IAsset[] } => {
 	const total = assets.reduce((sum, a) => sum + a.totalCost, 0)
 	const shares =
-		total > 0
-			? assets.map(a => ({ ...a, shareInPortfolio: a.totalCost / total }))
-			: assets
+		total > 0 ? assets.map(a => ({ ...a, shareInPortfolio: a.totalCost / total })) : assets
 	return { total, shares }
 }
 
@@ -79,7 +77,7 @@ export const walletSlice = createSlice({
 				quantity: number
 				price: number
 				changeDay: number
-			}>
+			}>,
 		) {
 			const { asset, quantity, price, changeDay } = action.payload
 			const existing = state.assets.find(a => a.asset === asset)
@@ -136,7 +134,7 @@ export const walletSlice = createSlice({
 					const tokenMap = new Map<string, number>(
 						payload
 							.filter(t => t.symbol.endsWith('USDT'))
-							.map(t => [t.symbol.replace('USDT', ''), Number(t.lastPrice)])
+							.map(t => [t.symbol.replace('USDT', ''), Number(t.lastPrice)]),
 					)
 
 					let updated = false
@@ -155,17 +153,12 @@ export const walletSlice = createSlice({
 						state.assets = shares
 						saveToStorage(state.assets)
 					}
-				}
+				},
 			)
 	},
 })
 
-export const {
-	clearWallet,
-	removeAsset,
-	addToken,
-	updatePrice,
-	preloadFromStorage,
-} = walletSlice.actions
+export const { clearWallet, removeAsset, addToken, updatePrice, preloadFromStorage } =
+	walletSlice.actions
 
 export default walletSlice.reducer

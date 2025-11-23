@@ -1,7 +1,8 @@
-import { cn } from '@/shared/lib/utils'
 import { NavigationMenu as NavigationMenuPrimitive } from '@base-ui-components/react/navigation-menu'
 import { cva } from 'class-variance-authority'
 import { ChevronDownIcon } from 'lucide-react'
+
+import { cn } from '@/shared/lib/utils'
 
 function NavigationMenu({
 	className,
@@ -12,9 +13,9 @@ function NavigationMenu({
 		<NavigationMenuPrimitive.Root
 			data-slot='navigation-menu'
 			className={cn(
-				'relative group/navigation-menu max-w-max',
+				'group/navigation-menu relative max-w-max',
 				'flex flex-1 items-center justify-center',
-				className
+				className,
 			)}
 			{...props}
 		>
@@ -30,10 +31,7 @@ function NavigationMenuList({
 	return (
 		<NavigationMenuPrimitive.List
 			data-slot='navigation-menu-list'
-			className={cn(
-				'group flex flex-1 list-none items-center justify-center gap-1',
-				className
-			)}
+			className={cn('group flex flex-1 list-none items-center justify-center gap-1', className)}
 			{...props}
 		/>
 	)
@@ -53,7 +51,7 @@ function NavigationMenuItem({
 }
 
 const navigationMenuTriggerStyle = cva(
-	'group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground disabled:pointer-events-none disabled:opacity-50 data-[popup-open]:hover:bg-accent data-[popup-open]:text-accent-foreground data-[popup-open]:focus:bg-accent data-[popup-open]:bg-accent/50 focus-visible:ring-ring/50 outline-none transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1'
+	'group bg-background hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground data-[popup-open]:hover:bg-accent data-[popup-open]:text-accent-foreground data-[popup-open]:focus:bg-accent data-[popup-open]:bg-accent/50 focus-visible:ring-ring/50 inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50',
 )
 
 function NavigationMenuTrigger({
@@ -85,14 +83,14 @@ function NavigationMenuContent({
 		<NavigationMenuPrimitive.Content
 			data-slot='navigation-menu-content'
 			className={cn(
-				'w-[calc(100vw_-_40px)] h-full p-2 sm:w-max xs:min-w-[400px]',
-				'transition-[opacity,transform,translate] duration-[var(--duration)] ease-[var(--easing)] ',
-				'data-[starting-style]:opacity-0 data-[ending-style]:opacity-0',
+				'xs:min-w-[400px] h-full w-[calc(100vw_-_40px)] p-2 sm:w-max',
+				'transition-[opacity,transform,translate] duration-[var(--duration)] ease-[var(--easing)]',
+				'data-[ending-style]:opacity-0 data-[starting-style]:opacity-0',
 				'data-[starting-style]:data-[activation-direction=left]:translate-x-[-50%]',
 				'data-[starting-style]:data-[activation-direction=right]:translate-x-[50%]',
 				'data-[ending-style]:data-[activation-direction=left]:translate-x-[50%]',
 				'data-[ending-style]:data-[activation-direction=right]:translate-x-[-50%]',
-				className
+				className,
 			)}
 			{...props}
 		/>
@@ -125,7 +123,7 @@ function NavigationMenuPositioner({
 				collisionAvoidance={{ side: 'none' }}
 				className={cn(
 					"box-border h-[var(--positioner-height)] w-[var(--positioner-width)] max-w-[var(--available-width)] transition-[top,left,right,bottom] duration-[var(--duration)] ease-[var(--easing)] before:absolute before:content-[''] data-[instant]:transition-none data-[side=bottom]:before:top-[-10px] data-[side=bottom]:before:right-0 data-[side=bottom]:before:left-0 data-[side=bottom]:before:h-2.5 data-[side=left]:before:top-0 data-[side=left]:before:right-[-10px] data-[side=left]:before:bottom-0 data-[side=left]:before:w-2.5 data-[side=right]:before:top-0 data-[side=right]:before:bottom-0 data-[side=right]:before:left-[-10px] data-[side=right]:before:w-2.5 data-[side=top]:before:right-0 data-[side=top]:before:bottom-[-10px] data-[side=top]:before:left-0 data-[side=top]:before:h-2.5",
-					className
+					className,
 				)}
 				style={
 					{
@@ -149,8 +147,8 @@ function NavigationMenuPopup({
 	return (
 		<NavigationMenuPrimitive.Popup
 			className={cn(
-				'data-[ending-style]:easing-[ease] relative h-[var(--popup-height)] origin-[var(--transform-origin)] rounded-lg bg-popover shadow-lg outline-1 outline-border transition-[opacity,transform,width,height,scale,translate] duration-[var(--duration)] ease-[var(--easing)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 w-[var(--popup-width)] xs:w-[var(--popup-width)] dark:shadow-none dark:-outline-offset-1',
-				className
+				'data-[ending-style]:easing-[ease] bg-popover outline-border xs:w-[var(--popup-width)] relative h-[var(--popup-height)] w-[var(--popup-width)] origin-[var(--transform-origin)] rounded-lg shadow-lg outline-1 transition-[opacity,transform,width,height,scale,translate] duration-[var(--duration)] ease-[var(--easing)] data-[ending-style]:scale-90 data-[ending-style]:opacity-0 data-[ending-style]:duration-150 data-[starting-style]:scale-90 data-[starting-style]:opacity-0 dark:shadow-none dark:-outline-offset-1',
+				className,
 			)}
 			{...props}
 		>
@@ -181,7 +179,7 @@ function NavigationMenuLink({
 			data-slot='navigation-menu-link'
 			className={cn(
 				"data-[active]:focus:bg-accent data-[active]:hover:bg-accent data-[active]:bg-accent/50 data-[active]:text-accent-foreground hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus-visible:ring-ring/50 [&_svg:not([class*='text-'])]:text-muted-foreground flex flex-col gap-1 rounded-sm p-2 text-sm transition-all outline-none focus-visible:ring-[3px] focus-visible:outline-1 [&_svg:not([class*='size-'])]:size-4",
-				className
+				className,
 			)}
 			{...props}
 		/>
@@ -197,7 +195,7 @@ function NavigationMenuArrow({
 			data-slot='navigation-menu-arrow'
 			className={cn(
 				'flex transition-[left] duration-[var(--duration)] ease-[var(--easing)] data-[side=bottom]:top-[-8px] data-[side=left]:right-[-13px] data-[side=left]:rotate-90 data-[side=right]:left-[-13px] data-[side=right]:-rotate-90 data-[side=top]:bottom-[-8px] data-[side=top]:rotate-180',
-				className
+				className,
 			)}
 			{...props}
 		>

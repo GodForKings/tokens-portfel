@@ -1,5 +1,7 @@
 import { useEffect } from 'react'
+
 import { useAppDispatch, useAppSelector } from '@/entities/store/lib/hooks'
+
 import {
 	preloadFromStorage,
 	addToken,
@@ -21,14 +23,12 @@ export const useWallet = () => {
 
 		totalValue,
 
-		add: (payload: Parameters<typeof addToken>[0]) =>
-			dispatch(addToken(payload)),
+		add: (payload: Parameters<typeof addToken>[0]) => dispatch(addToken(payload)),
 
 		remove: (asset: string) => dispatch(removeAsset(asset)),
 
 		clear: () => dispatch(clearWallet()),
 
-		updatePrice: (data: Parameters<typeof updatePrice>[0]) =>
-			dispatch(updatePrice(data)),
+		updatePrice: (data: Parameters<typeof updatePrice>[0]) => dispatch(updatePrice(data)),
 	}
 }

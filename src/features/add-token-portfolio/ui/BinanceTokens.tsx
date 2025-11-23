@@ -1,11 +1,12 @@
 'use client'
-import type { FC } from 'react'
-
-import { useAppSelector } from '@/entities'
-import { apiTokens } from '@/features'
 import { CustomTokenTable } from '@/shared/components'
 import { Button } from '@/shared/components/ui/button'
 import { BASE_POOLING } from '@/shared/constants'
+
+import { useAppSelector } from '@/entities'
+import { apiTokens } from '@/features'
+
+import type { FC } from 'react'
 
 export const BinanceTokens: FC = () => {
 	const { refetch } = apiTokens.useFetchAllTokensQuery(undefined, {

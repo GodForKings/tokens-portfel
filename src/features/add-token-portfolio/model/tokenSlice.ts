@@ -1,8 +1,9 @@
+import { createSlice } from '@reduxjs/toolkit'
+
+import { apiTokens } from '@/features'
+
 import type { IToken } from '@/entities'
 import type { PayloadAction } from '@reduxjs/toolkit'
-
-import { createSlice } from '@reduxjs/toolkit'
-import { apiTokens } from '@/features'
 
 interface TokenState {
 	tokens: IToken[]
@@ -38,15 +39,12 @@ export const tokenSlice = createSlice({
 							lastPrice: t.lastPrice,
 							priceChangePercent: t.priceChangePercent,
 						}))
-				}
+				},
 			)
-			.addMatcher(
-				apiTokens.endpoints.fetchAllTokens.matchRejected,
-				(state, { error }) => {
-					state.isLoading = false
-					state.error = error.message || 'Failed to load tokens'
-				}
-			)
+			.addMatcher(apiTokens.endpoints.fetchAllTokens.matchRejected, (state, { error }) => {
+				state.isLoading = false
+				state.error = error.message || 'Failed to load tokens'
+			})
 	},
 })
 

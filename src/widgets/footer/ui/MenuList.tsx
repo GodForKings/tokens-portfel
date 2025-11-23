@@ -1,10 +1,13 @@
 'use client'
-import type { FC } from 'react'
 
 import Link from 'next/link'
 
-import { Data, cn } from '@/shared'
 import { Button } from '@/shared/components/ui/button'
+
+import { cn } from '@/shared'
+
+import type { Data } from '@/shared'
+import type { FC } from 'react'
 
 interface MenuListProps {
 	MenuItems: Data.IMenuItem[]
@@ -15,7 +18,7 @@ export const MenuList: FC<MenuListProps> = props => {
 	const { MenuItems, onNewPage = false } = props
 
 	return (
-		<ul className={cn('text-sm space-y-2')}>
+		<ul className={cn('space-y-2 text-sm')}>
 			{MenuItems.map(item => (
 				<li key={item.href}>
 					<Button mode='link' underline='solid'>

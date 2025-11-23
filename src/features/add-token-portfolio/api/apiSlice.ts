@@ -1,7 +1,8 @@
-import type { IToken } from '@/entities'
-
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
 import { BINANCE } from '@/shared/constants'
+
+import type { IToken } from '@/entities'
 
 export const apiTokens = createApi({
 	reducerPath: 'apiTokens',

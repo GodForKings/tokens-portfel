@@ -1,4 +1,5 @@
-import type { FC } from 'react'
+import { BookOpenText, Info } from 'lucide-react'
+
 import {
 	AlertDialog,
 	AlertDialogContent,
@@ -8,7 +9,8 @@ import {
 	AlertDialogTrigger,
 } from '@/shared/components/ui/base-alert-dialog'
 import { Button } from '@/shared/components/ui/base-button'
-import { Bell, BookOpenText, Info } from 'lucide-react'
+
+import type { FC } from 'react'
 
 interface BaseAlertDialogDismissProps {
 	textInBtn: string
@@ -16,9 +18,7 @@ interface BaseAlertDialogDismissProps {
 	descText: string
 }
 
-export const BaseAlertDialogDismiss: FC<
-	BaseAlertDialogDismissProps
-> = props => {
+export const BaseAlertDialogDismiss: FC<BaseAlertDialogDismissProps> = props => {
 	const { textInBtn, titleText, descText } = props
 
 	return (
@@ -36,7 +36,7 @@ export const BaseAlertDialogDismiss: FC<
 			<AlertDialogContent showDismissButton={true}>
 				<AlertDialogHeader>
 					<AlertDialogTitle>
-						<BookOpenText className='size-5 text-muted-foreground' />
+						<BookOpenText className='text-muted-foreground size-5' />
 
 						{titleText}
 					</AlertDialogTitle>
