@@ -202,7 +202,7 @@ export const CustomTokenTable: FC<CustomTokenTableProps> = props => {
 				headerSticky: true,
 			}}
 		>
-			<Card>
+			<Card className='w-full'>
 				<CardHeader className='py-4'>
 					<CardHeading>
 						<div className='relative'>
